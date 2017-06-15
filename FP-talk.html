@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Talk about Functional Programing</title>
+    <meta charset="utf-8">
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont,
+                     'avenir next', avenir,
+                     ubuntu,
+                     roboto, noto,
+                     'segoe ui', arial,
+                     helvetica, 'helvetica neue',
+                     sans-serif;
+      }
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-slide-content {
+        background: #ffccee;
+        color: rgb(28,27,27,0.8);
+      }
+      .subtitle {
+        text-transform: uppercase;
+        font-size: 1rem;
+        letter-spacing: .2rem;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+>a short path into
+<!--
+   Will handle what, why and a little how.
+   Because how depends a lot on language mechanisms.
+   Happily general concepts of how remain common to most of languages.
+    -->
+</br>
+# Functional Programing
+####(FP)
+</br>
+.subtitle[(or How Maths rock beyond our keyboards !)]
+</br>
+</br>
+#### &lambda;
+</br>
+</br>
+.right[Matthias Rodier]
+</br>
+---
+
+## Agenda
+
+1. What is FP ?
+2. Why ?
+3. A little *How*
+
+---
+
+## What is FP ?
+
+### Overall definition
+
+ - A way of writing code (*re*)using <strong>functions</strong>
+ </br>
+ </br>
+--
+count: false
+ - Functions as <strong>basis bricks of a program</strong> &rarr; until reaching primitive types !
+ </br>
+ </br>
+![Default-aligned image](functionsAsBasisBricks3.png)
+
+---
+
+## What is FP ?
+
+###  Functional thinking's overview
+
+ - Think in terms of Data & Behavior
+</br>
+</br>
+![Default-aligned image](fpOverview2.png)
+</br>
+---
+
+## What is FP ?
+
+###  Functional thinking's overview
+
+ - Function &harr; a box in which some Inputs come in then produces Outputs
+</br>
+</br>
+![Default-aligned image](functionsProcessing2.png)
+</br>
+---
+
+## What is FP ?
+
+### But more precisely ?
+
+
+ - A specific relationship between Inputs and Outputs
+</br>
+--
+count: false
+</br>
+ - Mathematically we jot it down as some traditional
+```ruby
+f:i -> o
+or
+f(i) = o
+```
+>i : 1 input and o : 1 output
+</br>
+--
+count: false
+</br>
+ - Less cryptic we may have
+```ruby
+buildHouse( Cement, Bricks, Roof) -> House
+```
+>3 inputs and 1 output
+</br>
+---
+
+## Why ?
+
+### Here are some good reasons
+> To make code :
+- chainable
+- more readable
+- generic if possible
+- not depend on time flow
+- reusable : we can <strong>compose</strong> functions
+- steady : same Inputs induce same <strong>deterministic</strong> Results
+- code more debuggable & factorable (with exceptions !)
+</br>
+--
+count: false
+</br><!-- some readable code -->
+```ruby
+breakFast = addEgg(2,'scrambled').addBeacon(2).cookAll().addBread(1, 'roasted');
+```
+</br>
+--
+count: false
+<!-- not so readable code except in scientific teams maybe ! -->
+```ruby
+dP = d&Omega;(2,'binary').dU(time)/d&Lambda;
+```
+</br>
+---
+
+## Why ?
+
+### Little example
+
+>Let's reuse our breakfast variable as a function to make some...
+```ruby
+hugeBreakFast = breakFast().addPancake(2,'honey').bringJuice('orange');
+```
+</br>
+--
+count: false
+</br>
+>Now let's define a mega Breakfast :
+```ruby
+fun megaBreakfast(int? nb):
+  return hugeBreakfast()  * nb
+```
+</br>
+---
+
+## Why ?
+
+### Concrete example
+
+--
+count: false
+> Sometimes business layer code :
+- depends on context -> differents results -> side effects !
+- not so readable with many operations in a for loop or in if statements
+
+```ruby
+forEach(Being b in beingCollection) {
+ if( b.isExtraTerrestrial OR b.isNotHuman){
+    if( b.isBlue AND InterfaceStrumpfAge.isAdult ) //Pb : InterfaceStrumpfAge.isAdult may be redefined by some EVIL co-worker !
+      b.property_Adult = b.isAdultStrumpf;
+  }
+}
+```
+--
+count: false
+> In FP pseudo-code :
+
+```ruby
+beingCollection.map( Predicate(b) -> isExtraTerrestrial(b) OR isNotHuman(b) )
+	.filter( b -> isBlue(b) ).filter( b -> isAdult(b) ) //Sln : function isAdult is specific
+		.map( b -> apply( b, g -> isAdultStrumpf(g) );
+```
+</br>
+---
+##A little *How*
+
+###To sum up FP is a bunch of ...
+
+>Common concepts to make code as *functional* as possible : 
+>>do use : 
+- a <strong>fonctions first-class citizens</strong> language if possible
+--
+count: false
+- <strong>pure</strong> functions</br> + <strong>immutable</strong> data</br>&nbsp;&nbsp;&rarr; <strong>referential transparency</strong>
+--
+count: false
+- <strong>currified</strong> functions</br>&nbsp;&nbsp; &rarr; functions composition ( high-order functions )  + CSE
+--
+count: false
+- partial evaluations &rarr; <strong>memoization</strong>
+</br>
+---
+##Openings
+
+###&lambda;-calculus
+###&kappa;-calculus
+
+---
+
+## Thanks !
+
+### Questions ?
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script>
+    -->
+    <script>
+      var slideshow = remark.create();
+
+      //some tests on lateX
+      /*MathJax.Hub.Config({
+         tex2jax: {
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+         }
+     });
+
+     MathJax.Hub.Configured();*/
+    </script>
+  </body>
+</html>
